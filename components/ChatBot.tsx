@@ -1,8 +1,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from '@google/genai';
-import { PERSONAL_INFO, SKILLS, EXPERIENCES } from '../constants';
-import { Message } from '../types';
+import { PERSONAL_INFO, SKILLS, EXPERIENCES } from '../constants.ts';
+import { Message } from '../types.ts';
 
 const ChatBot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
@@ -37,8 +37,9 @@ const ChatBot: React.FC = () => {
     setIsTyping(true);
 
     try {
-      // Use process.env.API_KEY injected automatically
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+      // Safe check for process.env to prevent ReferenceError on static sites
+      const apiKey = (typeof process !== 'undefined' && process.env?.API_KEY) ? process.env.API_KEY : '';
+      const ai = new GoogleGenAI({ apiKey });
       
       const systemInstruction = `
         You are the "AI Twin" of Alex Rivera, a Senior Frontend Engineer.

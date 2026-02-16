@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { PERSONAL_INFO } from '../constants';
+import { PERSONAL_INFO } from '../constants.ts';
 
 const Footer: React.FC = () => {
   return (
